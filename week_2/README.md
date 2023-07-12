@@ -169,7 +169,9 @@ CUDA 10.1에 호환되는 Pytorch는 v1.4.0이었고, 해당하는 conda 명령�
 
 
 
-    conda install pytorch==1.4.0 torchvision==0.5.0 -c pytorch
+```anaconda
+conda install pytorch==1.4.0 torchvision==0.5.0 -c pytorch
+```
 
 
 
