@@ -263,6 +263,84 @@ NVIDIA GeForce GTX 1660 SUPER
 
 
 
+문제가 생겼다. 
+
+Tensorflow를 1.14.0으로 설치해야 하는 것을 알게 되어 설치했지만, 정작 기존에 깔려있던 Pytorch가 문제를 일으켰다. 
+
+오류 내용은 다음과 같다. 
+
+
+
+```
+Traceback (most recent call last):
+  File "C:\Users\ensung\anaconda3\envs\intern\lib\runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "C:\Users\ensung\anaconda3\envs\intern\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\adapter/../..\debugpy\launcher/../..\debugpy\__main__.py", line 39, in <module>
+    cli.main()
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\adapter/../..\debugpy\launcher/../..\debugpy/..\debugpy\server\cli.py", line 430, in main
+    run()
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\adapter/../..\debugpy\launcher/../..\debugpy/..\debugpy\server\cli.py", line 284, in run_file
+    runpy.run_path(target, run_name="__main__")
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 322, in run_path
+    pkg_name=pkg_name, script_name=fname)
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 136, in _run_module_code
+    mod_name, mod_spec, pkg_name, script_name)
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 124, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\ensung\Documents\test.py", line 2, in <module>
+    import torch
+  File "C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\torch\__init__.py", line 81, in <module>
+    ctypes.CDLL(dll)
+  File "C:\Users\ensung\anaconda3\envs\intern\lib\ctypes\__init__.py", line 364, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: [WinError 127] 지정된 프로시저를 찾을 수 없습니다
+```
+
+
+
+인터넷에 검색해보니 관련 [게시글](<https://bnmy6581.tistory.com/47>)이 하나 나왔다. 
+
+하지만 이미 설치했던 버전은 1.5.0이었고, 결국 다운그레이드를 계속 해봐야 할 것 같아서 1.2.0으로 다운그레이드를 시도해보았다. 
+
+이번에는 이전에 썼던 1.2.0 다운로드 명령어와는 좀 다르게 변형해서 실행해보았다. 
+
+
+
+    pip install torch==1.2.0+cu100 torchvision==0.4.0+cu100 -f https://download.pytorch.org/whl/torch_stable.html
+
+
+
+하지만 이 또한 오류가 발생했다. 
+
+
+
+```
+ERROR: Could not find a version that satisfies the requirement torch==1.2.0+cu100 (from versions: 0.4.1, 1.0.0, 1.0.1, 1.1.0, 1.2.0, 1.2.0+cpu, 1.2.0+cu92, 1.3.0, 1.3.0+cpu, 1.3.0+cu92, 1.3.1, 1.3.1+cpu, 1.3.1+cu92, 1.4.0, 1.4.0+cpu, 1.4.0+cu92, 1.5.0, 1.5.0+cpu, 1.5.0+cu101, 1.5.0+cu92, 1.5.1, 1.5.1+cpu, 1.5.1+cu101, 1.5.1+cu92, 1.6.0, 1.6.0+cpu, 1.6.0+cu101, 1.7.0, 1.7.0+cpu, 1.7.0+cu101, 1.7.0+cu110, 1.7.1, 1.7.1+cpu, 1.7.1+cu101, 1.7.1+cu110, 1.8.0, 1.8.0+cpu, 1.8.0+cu101, 1.8.0+cu111, 1.8.1, 1.8.1+cpu, 1.8.1+cu101, 1.8.1+cu102, 1.8.1+cu111, 1.9.0, 1.9.0+cpu, 1.9.0+cu102, 1.9.0+cu111, 1.9.1, 1.9.1+cpu, 1.9.1+cu102, 1.9.1+cu111, 1.10.0, 1.10.0+cpu, 1.10.0+cu102, 1.10.0+cu111, 1.10.0+cu113, 1.10.1, 1.10.1+cpu, 1.10.1+cu102, 1.10.1+cu111, 1.10.1+cu113, 1.10.2, 1.10.2+cpu, 1.10.2+cu102, 1.10.2+cu111, 1.10.2+cu113, 1.11.0, 1.11.0+cpu, 1.11.0+cu113, 1.11.0+cu115, 1.12.0, 1.12.0+cpu, 1.12.0+cu113, 1.12.0+cu116, 1.12.1, 1.12.1+cpu, 1.12.1+cu113, 1.12.1+cu116, 1.13.0, 1.13.0+cpu, 1.13.0+cu116, 1.13.0+cu117, 1.13.1, 1.13.1+cpu, 1.13.1+cu116, 1.13.1+cu117)
+ERROR: No matching distribution found for torch==1.2.0+cu100
+```
+
+
+
+오류 코드를 자세히 읽어보니 torch 1.2.0+cu100과 torchvision 0.4.0+cu100 이외에 torch 1.2.0, torchvision 0.4.0이 링크 속에 존재했다.
+
+그래서 명령어를 조금 수정한 뒤, 다시 실행해보았다. 
+
+
+
+    pip install torch==1.2.0 torchvision==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html
+
+
+
+그러니 놀랍게도 여태껏 깔리지 않았던 1.2.0 버전 Pytorch가 깔리기 시작했다. 
+
+알고보니 torch의 버전은 1.2.0+cu92였고, torchvision의 버전은 0.4.0+cu92였다. 
+
+원래 CUDA 9.2 버전에서 지원하도록 만든 것이 10.0에서도 호환이 되었던 것이라 설치 과정에서 어려움을 겪었던 것이 아닌가 생각했다. 
+
+
+
 ## TensorFlow
 
 텐서플로우는 설치 과정이 비교적 쉬웠던 것 같다. 
@@ -393,3 +471,80 @@ physical_device_desc: "device: 0, name: NVIDIA GeForce GTX 1660 SUPER, pci bus i
 
 
 정석적으로 따라가니 쉽게 해결할 수 있었던 것 같다. 
+
+
+
+문제가 생겼다. 
+
+Tensorflow를 1.14.0 버전으로 깔아야 했었다. 
+
+YOLO v3에 맞추기 위해 기존에 깔았던 Tensorflow 2.0.0 버전을 삭제하고 다음 명령어를 통해 재설치했다. 
+
+
+
+```
+pip install tensorflow==1.14.0
+pip install tensorflow-gpu==1.14.0
+```
+
+
+
+이후 파이썬 코드를 실행시켰을 때, 오류가 발생했지만 Pytorch의 버전 다운그레이드를 통해 문제를 해결했다. 
+
+문제 해결 후에 파이썬 코드를 돌리니 Tensorflow v2.0.0, Pytorch v1.5.0일 때처럼 올바르게 내용이 출력되었다. 
+
+하지만 조금 거슬리는 정도의 문제점이 발생했다. 
+
+실행 자체에는 문제가 되지 않지만, 경고문 정도로 터미널에 문구가 계속 뜬다. 
+
+
+
+```
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorflow\python\framework\dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorflow\python\framework\dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorflow\python\framework\dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorflow\python\framework\dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorflow\python\framework\dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorflow\python\framework\dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorboard\compat\tensorflow_stub\dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorboard\compat\tensorflow_stub\dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorboard\compat\tensorflow_stub\dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorboard\compat\tensorflow_stub\dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorboard\compat\tensorflow_stub\dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+C:\Users\ensung\anaconda3\envs\intern\lib\site-packages\tensorboard\compat\tensorflow_stub\dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+2023-07-13 15:59:42.653927: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2
+2023-07-13 15:59:42.660243: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library nvcuda.dll
+2023-07-13 15:59:42.713735: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: NVIDIA GeForce GTX 1660 SUPER major: 7 minor: 5 memoryClockRate(GHz): 1.815
+pciBusID: 0000:01:00.0
+2023-07-13 15:59:42.719670: I tensorflow/stream_executor/platform/default/dlopen_checker_stub.cc:25] GPU libraries are statically linked, skip dlopen check.
+2023-07-13 15:59:42.722863: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2023-07-13 15:59:43.064935: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2023-07-13 15:59:43.067493: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0
+2023-07-13 15:59:43.069052: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N
+2023-07-13 15:59:43.070826: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/device:GPU:0 with 4752 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce GTX 1660 SUPER, pci bus id: 0000:01:00.0, compute capability: 7.5)
+```
+
+
+
+아무래도 numpy에서 문제가 생긴 것 같아 numpy 버전을 1.21.6에서 1.16.4로 다운그레이드 시켜보기로 했다. 
+
+
+
+    pip install numpy==1.16.4
+
+
+
+명령어를 실행하여 버전을 다운그레이드하니 거슬리던 경고문구들도 없어지게 되었다. 
