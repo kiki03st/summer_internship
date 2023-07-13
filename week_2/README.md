@@ -260,3 +260,136 @@ NVIDIA GeForce GTX 1660 SUPER
 그래픽 카드 이름도 제대로 출력되고, CUDA 사용 가능 여부도 True로 반환되었으므로 올바르게 Pytorch가 깔린 것이다. 
 
 비록 권장 버전이 맞지는 않지만, 우여곡절 끝에 설치되어서 다행이다.  
+
+
+
+## TensorFlow
+
+텐서플로우는 설치 과정이 비교적 쉬웠던 것 같다. 
+
+CUDA 10.0과 cuDNN 7.4.2 버전에 맞게 tensorflow 2.0.0 버전을 pip 명령어를 통해 설치했다. 
+
+
+
+    pip install tensorflow==2.0.0
+
+
+
+그 후, tensorflow-gpu도 동일한 버전으로 설치했다. 
+
+
+
+    pip install tensorflow-gpu==2.0.0
+
+
+
+pytorch와는 달리 아무런 오류 없이 순조롭게 설치되었고, 올바르게 설치되었는지 확인하기 위해 파이썬 코드를 실행해보았다. 
+
+
+
+
+```python
+from tensorflow.python.client import device_lib
+print(device_lib.list_local_devices())
+```
+
+
+
+하지만 오류 하나 없이 설치되었던 것과 달리, 실행 과정에서 오류가 발생했다. 
+
+
+
+```
+Traceback (most recent call last):
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\adapter/../..\debugpy\launcher/../..\debugpy\__main__.py", line 39, in <module>
+    cli.main()
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\adapter/../..\debugpy\launcher/../..\debugpy/..\debugpy\server\cli.py", line 430, in main
+    run()
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\adapter/../..\debugpy\launcher/../..\debugpy/..\debugpy\server\cli.py", line 284, in run_file
+    runpy.run_path(target, run_name="__main__")
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 322, in run_path
+    pkg_name=pkg_name, script_name=fname)
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 136, in _run_module_code
+    mod_name, mod_spec, pkg_name, script_name)
+  File "c:\Users\ensung\.vscode\extensions\ms-python.python-2023.12.0\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 124, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\ensung\Documents\test.py", line 1, in <module>
+    import tensorflow
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow\__init__.py", line 98, in <module>
+    from tensorflow_core import *
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow_core\__init__.py", line 40, in <module>
+    from tensorflow.python.tools import module_util as _module_util
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 959, in _find_and_load_unlocked
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow\__init__.py", line 50, in __getattr__
+    module = self._load()
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow\__init__.py", line 44, in _load
+    module = _importlib.import_module(self.__name__)
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\importlib\__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow_core\python\__init__.py", line 52, in <module>
+    from tensorflow.core.framework.graph_pb2 import *
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow_core\core\framework\graph_pb2.py", line 16, in <module>
+    from tensorflow.core.framework import node_def_pb2 as tensorflow_dot_core_dot_framework_dot_node__def__pb2
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow_core\core\framework\node_def_pb2.py", line 16, in <module>
+    from tensorflow.core.framework import attr_value_pb2 as tensorflow_dot_core_dot_framework_dot_attr__value__pb2
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow_core\core\framework\attr_value_pb2.py", line 16, in <module>
+    from tensorflow.core.framework import tensor_pb2 as tensorflow_dot_core_dot_framework_dot_tensor__pb2
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow_core\core\framework\tensor_pb2.py", line 16, in <module>
+    from tensorflow.core.framework import resource_handle_pb2 as tensorflow_dot_core_dot_framework_dot_resource__handle__pb2
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow_core\core\framework\resource_handle_pb2.py", line 16, in <module>
+    from tensorflow.core.framework import tensor_shape_pb2 as tensorflow_dot_core_dot_framework_dot_tensor__shape__pb2
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\tensorflow_core\core\framework\tensor_shape_pb2.py", line 42, in <module>
+    serialized_options=None, file=DESCRIPTOR),
+  File "C:\Users\ensung\anaconda3\envs\torch\lib\site-packages\google\protobuf\descriptor.py", line 561, in __new__
+    _message.Message._CheckCalledFromGeneratedFile()
+TypeError: Descriptors cannot not be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+```
+
+
+
+오류 코드를 읽어보니 protobuf의 버전을 다운그레이드 하는 방법으로 해결할 수 있다고 한다. 그래서 다음과 같은 명령어를 실행했다. 
+
+
+
+    pip install protobuf==3.20.*
+
+
+
+이후, 파이썬 코드를 재실행해보니 다음과 같은 결과가 나오면서 정상적으로 작동했다. 
+
+
+
+```python
+[name: "/device:CPU:0"
+device_type: "CPU"
+memory_limit: 268435456
+locality {
+}
+incarnation: 6033115836984333028
+, name: "/device:GPU:0"
+device_type: "GPU"
+memory_limit: 4974444544
+locality {
+  bus_id: 1
+  links {
+  }
+}
+incarnation: 6002390634539786132
+physical_device_desc: "device: 0, name: NVIDIA GeForce GTX 1660 SUPER, pci bus id: 0000:01:00.0, compute capability: 7.5"
+]
+```
+
+
+
+정석적으로 따라가니 쉽게 해결할 수 있었던 것 같다. 
