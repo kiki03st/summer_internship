@@ -267,7 +267,7 @@ NVIDIA GeForce GTX 1660 SUPER
 
 Tensorflow를 1.14.0으로 설치해야 하는 것을 알게 되어 설치했지만, 정작 기존에 깔려있던 Pytorch가 문제를 일으켰다. 
 
-오류 내용은 다음과 같다. 
+파이썬 코드를 실행시켰을 때의 오류 내용은 다음과 같다. 
 
 
 
@@ -490,6 +490,23 @@ pip install tensorflow-gpu==1.14.0
 
 
 이후 파이썬 코드를 실행시켰을 때, 오류가 발생했지만 Pytorch의 버전 다운그레이드를 통해 문제를 해결했다. 
+
+파이썬 코드는 Pytorch의 정상 작동 여부 또한 보기 위해 다음과 같이 코드를 변경했다. 
+
+
+
+```python
+from tensorflow.python.client import device_lib
+import torch
+print(device_lib.list_local_devices())
+
+DEVICE = ("cuda" if torch.cuda.is_available() else "cpu")
+print(DEVICE)
+print(torch.cuda.is_available())
+print(torch.cuda.get_device_name(0))
+```
+
+
 
 문제 해결 후에 파이썬 코드를 돌리니 Tensorflow v2.0.0, Pytorch v1.5.0일 때처럼 올바르게 내용이 출력되었다. 
 
