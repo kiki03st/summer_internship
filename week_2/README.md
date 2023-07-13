@@ -510,6 +510,44 @@ print(torch.cuda.get_device_name(0))
 
 문제 해결 후에 파이썬 코드를 돌리니 Tensorflow v2.0.0, Pytorch v1.5.0일 때처럼 올바르게 내용이 출력되었다. 
 
+
+
+```
+2023-07-13 16:11:23.350141: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2
+2023-07-13 16:11:23.355457: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library nvcuda.dll
+2023-07-13 16:11:23.386309: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: NVIDIA GeForce GTX 1660 SUPER major: 7 minor: 5 memoryClockRate(GHz): 1.815
+pciBusID: 0000:01:00.0
+2023-07-13 16:11:23.391453: I tensorflow/stream_executor/platform/default/dlopen_checker_stub.cc:25] GPU libraries are statically linked, skip dlopen check.
+2023-07-13 16:11:23.393863: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2023-07-13 16:11:23.736243: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2023-07-13 16:11:23.739043: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0
+2023-07-13 16:11:23.740485: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N
+2023-07-13 16:11:23.742017: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/device:GPU:0 with 4752 MB memory) -> physical GPU (device: 0, name: NVIDIA GeForce GTX 1660 SUPER, pci bus id: 0000:01:00.0, compute capability: 7.5)
+[name: "/device:CPU:0"
+device_type: "CPU"
+memory_limit: 268435456
+locality {
+}
+incarnation: 602485122959971020
+, name: "/device:GPU:0"
+device_type: "GPU"
+memory_limit: 4982833152
+locality {
+  bus_id: 1
+  links {
+  }
+}
+incarnation: 5831104311346886230
+physical_device_desc: "device: 0, name: NVIDIA GeForce GTX 1660 SUPER, pci bus id: 0000:01:00.0, compute capability: 7.5"
+]
+cuda
+True
+NVIDIA GeForce GTX 1660 SUPER
+```
+
+
+
 하지만 조금 거슬리는 정도의 문제점이 발생했다. 
 
 실행 자체에는 문제가 되지 않지만, 경고문 정도로 터미널에 문구가 계속 뜬다. 
